@@ -30,7 +30,7 @@ class Dice
   def set_score
     case @dice
       when [4,5,6]
-        return 20
+        return 100
       when [1,2,3]
         return 0
     end
@@ -41,7 +41,7 @@ class Dice
     elsif @dice[0] == @dice[2] && @dice[1] != @dice[2]
       return @dice[1]
     elsif @dice[0] == @dice[1] && @dice[1] == @dice[2]
-      return @dice[0] * 2
+      return @dice[0] * 10
     else
       return -1
     end

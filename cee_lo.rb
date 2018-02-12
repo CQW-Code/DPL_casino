@@ -19,30 +19,34 @@ class Cee_lo
 
   def compare(hand1, hand2)
 
+    show(@dealer_hand, "Dealer")
+    show(@player_hand, @player.name)
+
     if hand1.score == hand2.score
-      puts "Tie. Nobody wins."
+      puts "\tTie. Nobody wins."
+      start_game(@player)
     elsif hand1.score > hand2.score
-      puts "You win #{@bet}!".colorize(:green)
+      puts "\tYou win #{@bet}!".colorize(:green)
       @player.wallet.increase_balance(@bet)
     else
-      puts "You lose #{@bet}. Pay up, sucka!".colorize(:red)
+      puts "\tYou lose #{@bet}. Pay up, sucka!".colorize(:red)
       @player.wallet.decrease_balance(@bet)
     end
   end
 
   def get_bet
-    print "Enter your bet amount: "
+    print "\tEnter your bet amount: "
     @bet = $stdin.gets.strip.to_i
     while @bet > @player.wallet.balance
-      puts "You only have $#{@player.wallet.balance}."
-      print "You have to bet less than that."
+      puts "\tYou only have $#{@player.wallet.balance}."
+      print "\tYou have to bet less than that."
       @bet = $stdin.gets.strip.to_i
     end
   end
 
   def show(hand, player_name)
 
-    puts "#{player_name}'s hand: #{hand.show_dice} (score: #{@score})"
+    puts "#{player_name}'s hand: #{hand.dice} (score: #{hand.score})"
   
   end
 
@@ -57,39 +61,39 @@ class Cee_lo
     case order
       when 1
         @player_hand = take_turn(@player_hand)
-        show(@player_hand)
+        
         @dealer_hand = take_turn(@dealer_hand)
         compare(@player_hand, @dealer_hand)
       when 2
         @dealer_hand = take_turn(@dealer_hand)
-        show(@dealer_hand)
-        @player_hand = take_turn(@dealer_hand)
+        
+        @player_hand = take_turn(@player_hand)
         compare(@player_hand, @dealer_hand)
     end
   end
 
-  def exit_game()
+  def exit_game
 
   end
 
   def start_game(player1)
-    puts "\t Welcome to the game, #{player1.name}!"
-    my_bet = self.get_bet
-    print "\t Do you want to roll 1) First or 2) Second? or 3) Not at all?"
-    choice = $stdin.gets.strip.to_i
+    puts "\n\n\tWelcome to Cee-Lo, #{player1.name}!"
+    my_bet = get_bet
+    print "\tDo you want to roll 1) First or 2) Second? or 3) Not at all? "
+    choice = gets.strip.to_i
 
     # Loop to get a valid menu choice
     while choice != 1 && choice != 2 && choice != 3
-      print "Invalid option. Enter choice 1 or 2. ".colorize(:red)
-      choice = $stdin.gets.strip.to_i
-      case choice
-        when 1
-          play_game(1)
-        when 2
-          play_game(2)
-        when 3
-          self.exit_game
-      end
+      print "\tInvalid option. Enter choice 1 or 2. ".colorize(:red)
+      choice = gets.strip.to_i
+    end
+    case choice
+      when 1
+        play_game(1)
+      when 2
+        play_game(2)
+      when 3
+        exit_game
     end
 
   end
@@ -100,15 +104,6 @@ class Cee_lo
 end
 
 
-@player_hand = Dice.new(3)
-@dealer_hand = Dice.new(3)
-
-@player_hand.roll_dice
-@dealer_hand.roll_dice
-
-@player_hand.show_dice("Reid")
-@dealer_hand.show_dice("Dealer")
-
 @wallet1 = Wallet.new(500)
 @wallet2 = Wallet.new(1000000000)
 
@@ -117,5 +112,3 @@ end
 
 @game = Cee_lo.new(@player1)
 @game.start_game(@player1)
-
-@game.compare(@player_hand, @dealer_hand)
