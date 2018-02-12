@@ -22,5 +22,4 @@ class Deck
   def shuffle_cards
     @cards.shuffle
   end
-end
-
+end 
