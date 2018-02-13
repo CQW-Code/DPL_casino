@@ -14,21 +14,19 @@ class HighLow
         puts "How much would you like to bet?"
         user_input = gets.strip.to_i
         card1 = @cards.pop
-        numeric_value(card1)
         puts "Your card is the #{card1.rank} of #{card1.suit}"
         puts "Will the next card be high(1) or low(2)?"
         user_input = gets.to_i
         card2 = @cards.pop
-        numeric_value2(card2)
         puts "Your second card is the #{card2.rank} of #{card2.suit}"
         case  user_input
-            when "1"
+            when 1
                 if card1.value < card2.value 
                     puts "You win!"
                 else 
                     puts "You lose!"
                 end 
-            when "2"
+            when 2
                 if card1.value > card2.value
                     puts "You win!"
                 else 
