@@ -22,14 +22,14 @@ class HighLow
         numeric_value2(card2)
         puts "Your second card is the #{card2.rank} of #{card2.suit}"
         case  user_input
-            when 1
-                if @value1 < @value2  
+            when "1"
+                if card1.value < card2.value 
                     puts "You win!"
                 else 
                     puts "You lose!"
                 end 
-            when 2
-                if @value1 > @value2 
+            when "2"
+                if card1.value > card2.value
                     puts "You win!"
                 else 
                     puts "You lose!"
@@ -40,28 +40,5 @@ class HighLow
     end 
      
 
-    def numeric_value(card1)
-        faces = { 'J' => 11, 'Q' => 12, 'K' => 13, 'A'=> 1}
-        begin 
-            if Integer(card1.rank).is_a?(Numeric)
-                @value1 = card1.rank.to_i
-            end
-        rescue => e 
-            @value1 = faces[card1.rank]
-        end 
-        @value1 
-    end 
-    
-    def numeric_value2(card2)
-        faces = { 'J' => 11, 'Q' => 12, 'K' => 13, 'A'=> 1}
-        begin 
-            if Integer(card2.rank).is_a?(Numeric)
-                @value2 = card2.rank.to_i
-            end
-        rescue => e 
-            @value2 = faces[card2.rank]
-        end 
-        @value2 
-    end 
 end 
 HighLow.new 
