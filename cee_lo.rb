@@ -16,7 +16,7 @@ class Cee_lo
     @dealer = Player.new("Dealer", 9999999999)
     @player_hand = Dice.new(3)
     @dealer_hand = Dice.new(3)
-    start_game(@player)
+    start_game
   end
 
   def compare(hand1, hand2)
@@ -74,8 +74,8 @@ class Cee_lo
     end
   end
 
-  def start_game(player1)
-    puts "\n\t" + "$$$$$$$$".colorize(:green) +" Welcome to Cee-Lo, #{player1.name}! " + "$$$$$$$$".colorize(:green)
+  def start_game
+    puts "\n\t" + "$$$$$$$$".colorize(:green) +" Welcome to Cee-Lo, #{player.name}! " + "$$$$$$$$".colorize(:green)
     my_bet = get_bet
     puts "\tDo you want to roll"
     puts "\t1) First"
@@ -105,12 +105,3 @@ class Cee_lo
 # End the class 
 end
 
-
-@wallet1 = Wallet.new(500)
-@wallet2 = Wallet.new(1000000000)
-
-@player1 = Player.new("Reid", @wallet1)
-@player2 = Player.new("Dealer", @wallet2)
-
-@game = Cee_lo.new(@player1)
-@game.start_game(@player1)

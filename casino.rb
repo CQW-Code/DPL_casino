@@ -2,7 +2,7 @@ require_relative 'player'
 require_relative 'blackjack'
 require_relative 'high_low'
 require_relative 'slots'
-
+require_relative 'cee_lo'
 
 class Casino
   attr_accessor :games, :player
@@ -34,7 +34,7 @@ class Casino
     game_choice = gets.strip.to_i
     case game_choice
       when 1
-        Slots.new(@player, self)
+        Slots.new.slot_menu(@player, self)
       when 2
         HighLow.new(@player, self)
       when 3

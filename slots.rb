@@ -4,31 +4,27 @@
 #exiting to casino main_menu not working (yet)
 # might be missing some other stuff but the majority is working!
 #enjoy!
-
+require_relative 'wallet' #moved these out not sure if it has an impact
+require_relative 'player'
+require_relative 'casino'
 class Slots
 
-require_relative "wallet"
-require_relative "player"
-require_relative "casino"
-
 #add color??
+attr_accessor   :slots_arr, :bet, :amount, :name, :wallet, :balance, :list_games, 
 
-attr_accessor   :slots_arr, :bet, :amount, :name, :wallet, :balance, :list_games, :main_menu
-
-def initialize
+def initialize(player1, casino)
   @slots_arr = [ "💎", "😎", "🍓", "🍒", "🍋", "💰", "🍎", "🍕", "🍺", "🖥"]
-  #@player = Player.new("Ducky", 50)
+  @player = player1 #player variable
+  @casino = casino 
   @wallet = Wallet.new(50)
   @balance = balance
-  list_games
-  main_menu
   slot_menu
   @amount = amount
   #@name = name
   @wallet = wallet
 end #end initialize
 
-def slot_menu
+def slot_menu(player1, casino) #pushes variables into menu
   puts "Place your bet and spin: "
   puts "1) Penny Slots- $1"
   puts "2) Two-fer Slots- $2"
@@ -116,10 +112,10 @@ def exit_slots
   if exit_yn == "y"
     slot_menu
   else 
-    @casino.list_games 
+    @casino.main_menu
   end #end if
 end #end exit_slots
-@slots = Slots.new
+
 
 
 
