@@ -26,10 +26,10 @@ class Cee_lo
       puts "\tTie. Nobody wins."
       start_game(@player)
     elsif hand1.score > hand2.score
-      puts "\tYou win #{@bet}!".colorize(:green)
+      puts "\t\tYou win $#{@bet}! Gettin' PAID!".colorize(:green)
       @player.wallet.increase_balance(@bet)
     else
-      puts "\tYou lose #{@bet}. Pay up, sucka!".colorize(:red)
+      puts "\t\tYou lose $#{@bet}. Pay up, sucka!".colorize(:red)
       @player.wallet.decrease_balance(@bet)
     end
   end
@@ -46,7 +46,7 @@ class Cee_lo
 
   def show(hand, player_name)
 
-    puts "#{player_name}'s hand: #{hand.dice} (score: #{hand.score})"
+    puts "\t\t#{player_name}'s roll: #{hand.dice} (score: #{hand.score})"
   
   end
 
@@ -77,9 +77,13 @@ class Cee_lo
   end
 
   def start_game(player1)
-    puts "\n\n\tWelcome to Cee-Lo, #{player1.name}!"
+    puts "\n\t" + "$$$$$$$$".colorize(:green) +" Welcome to Cee-Lo, #{player1.name}! " + "$$$$$$$$".colorize(:green)
     my_bet = get_bet
-    print "\tDo you want to roll 1) First or 2) Second? or 3) Not at all? "
+    puts "\tDo you want to roll"
+    puts "\t1) First"
+    puts "\t2) Second"
+    puts "\t3) Not at all?"
+    print "\t>> "
     choice = gets.strip.to_i
 
     # Loop to get a valid menu choice
