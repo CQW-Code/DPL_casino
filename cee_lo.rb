@@ -9,8 +9,9 @@ require_relative 'casino'
 class Cee_lo
   attr_accessor :player, :bet, :dealer, :player_hand, :dealer_hand
 
-  def initialize(player1)
+  def initialize(player1, casino)
     @bet = 0
+    @casino = casino
     @player = player1
     @dealer = Player.new("Dealer", 9999999999)
     @player_hand = Dice.new(3)
@@ -73,10 +74,6 @@ class Cee_lo
     end
   end
 
-  def exit_game
-
-  end
-
   def start_game(player1)
     puts "\n\t" + "$$$$$$$$".colorize(:green) +" Welcome to Cee-Lo, #{player1.name}! " + "$$$$$$$$".colorize(:green)
     my_bet = get_bet
@@ -98,7 +95,7 @@ class Cee_lo
       when 2
         play_game(2)
       when 3
-        exit_game
+        @casino.main_menu
     end
 
   end

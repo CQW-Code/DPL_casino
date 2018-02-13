@@ -3,9 +3,8 @@ require_relative 'player'
 class Casino
   attr_accessor :games, :player
 
-  def initialize(games, player)
-    @player = player
-    @games = games
+  def initialize
+    main_menu
   end
 
   def list_games
@@ -20,6 +19,12 @@ class Casino
   def main_menu
 
     puts "\nWelcome to the extravagant Ruby Casino!"
+    print "\What is your name? "
+    name = gets.strip
+    print "\tHow much money did you bring? "
+    money = gets.strip.to_i
+    wallet = Wallet.new(money)
+    @player = Player.new(name, wallet)
     list_games
     print "\tWhat would you like to play? "
     game_choice = gets.strip.to_i

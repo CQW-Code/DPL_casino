@@ -1,12 +1,15 @@
 require 'colorize'
 require_relative 'deck'
+require_relative 'player'
+require_relative 'casino'
 
 
 class Blackjack
   attr_accessor :cards
 
-  def initialize(player1)
+  def initialize(player1, casino)
     @player = player1
+    @casino = casino
     deck = Deck.new
     @bet = 0
     @cards = deck.shuffle_cards
@@ -46,7 +49,7 @@ class Blackjack
 
   def play
 
-    if card_total > 21
+    if card_total(@player_hand) > 21
       puts "\tYou've busted!"
       @player.wallet.decrease_balance(@bet)
       start_game
@@ -71,6 +74,10 @@ class Blackjack
     end
   end
 
+  def exit_game
+    @casino.main_menu
+  end
+
   # deal two cards to the player, and one to the dealer
   def initial_deal
     @player_hand << @cards.pop
@@ -81,8 +88,8 @@ class Blackjack
       @player.wallet.increase_balance(@bet * 1.5)
       start_game
     else
-      puts "\tDealer shows a #{@dealer_hand[0]}."
-      first_play
+      puts "\tDealer shows a #{@dealer_hand[0].rank}."
+      play
     end
   end
 
@@ -100,10 +107,14 @@ class Blackjack
   end
 
   def start_game
-    puts "\tWelcome to Blackjack, #{player1.name}!"
+    puts "\tWelcome to Blackjack, #{@player.name}!"
     my_bet = get_bet
     initial_deal
   end
 
 end
 
+@casino = Casino.new()
+@wallet = Wallet.new(500)
+@player1 = Player.new("Reid", @wallet)
+@game = Blackjack.new(@player1)
