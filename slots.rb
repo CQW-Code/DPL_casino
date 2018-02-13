@@ -1,29 +1,31 @@
 #Slots for Casino project
-<<<<<<< HEAD
 
-#Haven't gotten the wallet/bet part working.. I can't seem to connect
-#to the player or wallet classes not sure why
-#looks a little messy but it works for the slot part!
+#setting bets and adding/subtracting to wallet- works
+#exiting to casino main_menu not working (yet)
+# might be missing some other stuff but the majority is working!
 #enjoy!
 
 class Slots
 
-#require_relative "wallet"
-#require_relative "player"
-#require_relative "casino"
-require "pry"
+require_relative "wallet"
+require_relative "player"
+require_relative "casino"
+
 #add color??
 
-attr_accessor  :bet, :result2, :result3, :result4, :result5
+attr_accessor   :slots_arr, :bet, :amount, :name, :wallet, :balance, :list_games, :main_menu
 
 def initialize
   @slots_arr = [ "💎", "😎", "🍓", "🍒", "🍋", "💰", "🍎", "🍕", "🍺", "🖥"]
-  @result2 = result2
-  @result3 = result3
-  @result4 = result4
-  @result5 = result5
-  @bet = bet
-
+  #@player = Player.new("Ducky", 50)
+  @wallet = Wallet.new(50)
+  @balance = balance
+  list_games
+  main_menu
+  slot_menu
+  @amount = amount
+  #@name = name
+  @wallet = wallet
 end #end initialize
 
 def slot_menu
@@ -41,193 +43,87 @@ def slot_menu
     when 3
         mega_slot
     when 4
-        
-        "Sorry to see you go!"
-        exit        
+        puts "Sorry to see you go!"
+        @casino.main_menu  
+    else 
+      puts "Not a valid selection."   
   end #end case
 end #slot_menu
-=======
->>>>>>> slots
 
-#Haven't gotten the wallet/bet part working.. I can't seem to connect
-#to the player or wallet classes not sure why
-#looks a little messy but it works for the slot part!
-#enjoy!
 
-class Slots
-
-<<<<<<< HEAD
-def match(bet)
+def match(amount)
+  
   if @slots_arr[0] == @slots_arr[1] && @slots_arr[0] == @slots_arr[2] && @slots_arr[0] == @slots_arr[3]
      # @player.wallet.increase_balance(@bet)
       puts "its a match!"
   else
-     # @player.wallet.decrease_balance(@bet)
+      @wallet.decrease_balance(amount)
       puts "it's not a match!"
+      
   end
 end
 
 def penny_slots
-  @bet = 1.00
+  amount = 1
   puts "_____________________"
   puts "| " + @slots_arr.sample(4).join(" | ") +" |"
-  puts "_____________________"
+  puts "---------------------"
   puts 
-  match
-  puts "your balance is now: $ #{@bet}"
+  match(amount)
+  puts "your balance is now: $#{@wallet.balance}"
+  exit_slots
 end # end penny_slots
 
 def two_fer
-   bet = 2.00
-    result2 = @slots_arr.sample(4).join(" | ")
+   amount = 2
+   
     puts "_____________________"
     puts "| " + @slots_arr.sample(4).join(" | ") +" |"
     puts "_____________________"
-    puts "| " + " #{result2}" + " |"
-    puts "_____________________"
+    puts "| " + @slots_arr.sample(4).join(" | ") + " |"
+    puts "---------------------"
     puts
-    puts "your balance is now: $ #{@bet}" #need the actual balance
-    
-    exit
+    match(amount)
+    puts "your balance is now: $#{@wallet.balance}" 
+
+    exit_slots
    
 end #end two_fer
 
 def mega_slot
-  bet = 5.00
-  #too much... think there is a better way for this
-  result2 = @slots_arr.sample(4).join(" | ")
-  result3 = @slots_arr.sample(4).join(" | ")
-  result4 = @slots_arr.sample(4).join(" | ")
-  result5 = @slots_arr.sample(4).join(" | ")
-  puts "____________________"
-  puts "| " + @slots_arr.sample(4).join(" | ") +" |"
-  puts "____________________"
-  puts "| " + "#{result2}" + " |"
-  puts "____________________"
-  puts "| " + "#{result3}" + " |"
-  puts "_____________________"
-  puts "| " + "#{result4}" + " |"
-  puts "_____________________"
-  puts "| " + " #{result5}" + " |"
-  puts "_____________________"
-  puts
-  puts "your balance is now: $ #{@bet} " #need the actual balance
-end #end mega_slot
+  amount  = 5
+  #a little neater- not the neatest looking rows
   
-@slots = Slots.new()
-#@player = Player.new("Ducky")
-#@wallet = Wallet.new(50)
-@slots.slot_menu
+  puts "---------------------"
+  puts "| " + @slots_arr.sample(4).join(" | ") + " | "
+  puts "---------------------"
+  puts "| " + @slots_arr.sample(4).join(" | ") + " |"
+  puts "---------------------"
+  puts "| " + @slots_arr.sample(4).join(" | ") +  " |"
+  puts "---------------------"
+  puts "| " + @slots_arr.sample(4).join(" | ") +  " |"
+  puts "---------------------"
+  puts "| " + @slots_arr.sample(4).join(" | ") +  " |"
+  puts "---------------------"
+  match(amount)
+  puts "your balance is now: $#{@wallet.balance} " 
+  exit_slots
+end #end mega_slot
+ 
+def exit_slots
+  puts "Do you want to continue Y or N?"
+  exit_yn = gets.strip.downcase
+  if exit_yn == "y"
+    slot_menu
+  else 
+    @casino.list_games 
+  end #end if
+end #end exit_slots
+@slots = Slots.new
+
+
 
 
 
 end #end class
-=======
-    #require_relative "wallet"
-    #require_relative "player"
-    #require_relative "casino"
-    require "pry"
-    #add color??
-    
-    attr_accessor  :bet, :result2, :result3, :result4, :result5
-    
-    def initialize
-      @slots_arr = [ "💎", "😎", "🍓", "🍒", "🍋", "💰", "🍎", "🍕", "🍺", "🖥"]
-      @result2 = result2
-      @result3 = result3
-      @result4 = result4
-      @result5 = result5
-      @bet = bet
-    
-    end #end initialize
-    
-    def slot_menu
-      puts "Place your bet and spin: "
-      puts "1) Penny Slots- $1"
-      puts "2) Two-fer Slots- $2"
-      puts "3) Mega Slots- $5"
-      puts "4) Get me out of here- Exit"
-      choice = gets.to_i
-      case choice
-        when 1
-            penny_slots
-        when 2
-            two_fer
-        when 3
-            mega_slot
-        when 4
-            
-            "Sorry to see you go!"
-            exit        
-      end #end case
-    end #slot_menu
-    
-    
-    
-    def match(bet)
-      if @slots_arr[0] == @slots_arr[1] && @slots_arr[0] == @slots_arr[2] && @slots_arr[0] == @slots_arr[3]
-         # @player.wallet.increase_balance(@bet)
-          puts "its a match!"
-      else
-         # @player.wallet.decrease_balance(@bet)
-          puts "it's not a match!"
-      end
-    end
-    
-    def penny_slots
-      @bet = 1.00
-      puts "_____________________"
-      puts "| " + @slots_arr.sample(4).join(" | ") +" |"
-      puts "_____________________"
-      puts 
-      match
-      puts "your balance is now: $ #{@bet}"
-    end # end penny_slots
-    
-    def two_fer
-       bet = 2.00
-        result2 = @slots_arr.sample(4).join(" | ")
-        puts "_____________________"
-        puts "| " + @slots_arr.sample(4).join(" | ") +" |"
-        puts "_____________________"
-        puts "| " + " #{result2}" + " |"
-        puts "_____________________"
-        puts
-        puts "your balance is now: $ #{@bet}" #need the actual balance
-        
-        exit
-       
-    end #end two_fer
-    
-    def mega_slot
-      bet = 5.00
-      #too much... think there is a better way for this
-      result2 = @slots_arr.sample(4).join(" | ")
-      result3 = @slots_arr.sample(4).join(" | ")
-      result4 = @slots_arr.sample(4).join(" | ")
-      result5 = @slots_arr.sample(4).join(" | ")
-      puts "____________________"
-      puts "| " + @slots_arr.sample(4).join(" | ") +" |"
-      puts "____________________"
-      puts "| " + "#{result2}" + " |"
-      puts "____________________"
-      puts "| " + "#{result3}" + " |"
-      puts "_____________________"
-      puts "| " + "#{result4}" + " |"
-      puts "_____________________"
-      puts "| " + " #{result5}" + " |"
-      puts "_____________________"
-      puts
-      puts "your balance is now: $ #{@bet} " #need the actual balance
-    end #end mega_slot
-      
-    @slots = Slots.new()
-    #@player = Player.new("Ducky")
-    #@wallet = Wallet.new(50)
-    @slots.slot_menu
-    
-    
-    
-    end #end class
-    
->>>>>>> slots
+ 
