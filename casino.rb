@@ -1,6 +1,9 @@
 require_relative 'player'
 require_relative 'blackjack'
 require_relative 'high_low'
+require_relative 'slots'
+
+
 class Casino
   attr_accessor :games, :player
 
@@ -42,5 +45,3 @@ class Casino
   end
 
 end
-
-Casino.new

@@ -43,10 +43,20 @@ class Blackjack
     return card_total
   end
 
+  def show_hand(hand)
+    cards = []
+    hand.each do |card|
+      cards << card.rank
+    end
+    return cards
+  end
+
   def hit(whom)
-    if whom = 'player'
+    if whom == 'player'
+      puts "\tHitting #{show_hand(@player_hand)}"
       @player_hand << @cards.pop
     else
+      puts "\tHitting #{show_hand(@player_hand)}"
       @dealer_hand << @cards.pop
     end
   end
