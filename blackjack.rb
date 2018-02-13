@@ -18,6 +18,8 @@ class Blackjack
     start_game
   end
 
+  # there is a bug somewhere in this function.
+  
   def card_total(hand)
     card_total = 0
     aces_count = 0
@@ -27,6 +29,8 @@ class Blackjack
       elsif card.rank == 'A'
         card_total += 11
         aces_count += 1
+      else
+        card_total += card.rank.to_i
       end
     end
     if card_total > 21 && aces_count > 0
@@ -39,20 +43,39 @@ class Blackjack
     return card_total
   end
 
-  def hit
-
+  def hit(whom)
+    if whom = 'player'
+      @player_hand << @cards.pop
+    else
+      @dealer_hand << @cards.pop
+    end
   end
 
   def stay
-
+    hit('dealer')
+    while true
+      if card_total(@dealer_hand) > 21
+        puts "\tDealer busts with #{card_total(@dealer_hand)}! You win #{@bet}."
+        @player.wallet.increase_balance(@bet)
+        Blackjack.new(@player, @casino)
+      elsif card_total(@dealer_hand) < 21 && card_total(@dealer_hand) > card_total(@player_hand)
+        puts "\tDealer wins with #{card_total(@dealer_hand)} vs your #{card_total(@dealer_hand)}"
+        Blackjack.new(@player, @casino)
+      elsif card_total(@dealer_hand) == card_total(@player_hand)
+        puts "\tPush!"
+        Blackjack.new(@player, @casino)
+      else
+        hit('dealer')
+      end
+    end
   end
 
   def play
 
     if card_total(@player_hand) > 21
-      puts "\tYou've busted!"
+      puts "\tYou've busted! You lose $#{@bet}."
       @player.wallet.decrease_balance(@bet)
-      start_game
+      Blackjack.new(@player, @casino)
     else
       puts "\tYou have #{card_total(@player_hand)}."
       puts "\tWhat's your play?"
@@ -66,7 +89,7 @@ class Blackjack
       end
       case choice
         when 1
-          hit(@player_hand)
+          hit('player')
           play
         when 2
           stay
@@ -86,7 +109,7 @@ class Blackjack
     if card_total(@player_hand) == 21
       puts "\tBLACKJACK! You win #{@bet * 1.5}."
       @player.wallet.increase_balance(@bet * 1.5)
-      start_game
+      Blackjack.new(@player, @casino)
     else
       puts "\tDealer shows a #{@dealer_hand[0].rank}."
       play
@@ -102,8 +125,9 @@ class Blackjack
     while @bet.to_i > @player.wallet.balance && @bet != 'quit'
       puts "\tYou only have $#{@player.wallet.balance}."
       print "\tYou have to bet less than that."
-      @bet = $stdin.gets.strip.to_i
+      @bet = gets.strip.to_i
     end
+    @bet = @bet.to_i
   end
 
   def start_game
@@ -113,8 +137,3 @@ class Blackjack
   end
 
 end
-
-@casino = Casino.new
-@wallet = Wallet.new(500)
-@player1 = Player.new("Reid", @wallet)
-@game = Blackjack.new(@player1)
