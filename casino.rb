@@ -1,9 +1,11 @@
 require_relative 'player'
+require_relative 'blackjack'
 
 class Casino
   attr_accessor :games, :player
 
   def initialize
+    @games = ["Slots", "High-Low", "Cee-Lo", "Blackjack"]
     main_menu
   end
 
@@ -28,14 +30,18 @@ class Casino
     list_games
     print "\tWhat would you like to play? "
     game_choice = gets.strip.to_i
-    puts "#{@games[game_choice-1]}"
-
+    case game_choice
+      when 1
+        Slots.new(@player, self)
+      when 2
+        High_low.new(@player, self)
+      when 3
+        Cee_lo.new(@player, self)
+      when 4
+        Blackjack.new(@player, self)
+    end
   end
 
 end
 
-@reid = Player.new("Reid", 500)
-
-@casino_games = ["Blackjack", "High-Low", "Cee-Lo", "Slots"]
-@casino = Casino.new(@casino_games, @reid)
-@casino.main_menu
+Casino.new

@@ -114,7 +114,7 @@ class Blackjack
 
 end
 
-@casino = Casino.new()
+@casino = Casino.new
 @wallet = Wallet.new(500)
 @player1 = Player.new("Reid", @wallet)
 @game = Blackjack.new(@player1)
