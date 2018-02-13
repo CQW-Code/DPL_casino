@@ -15,6 +15,7 @@ class Cee_lo
     @dealer = Player.new("Dealer", 9999999999)
     @player_hand = Dice.new(3)
     @dealer_hand = Dice.new(3)
+    start_game(@player)
   end
 
   def compare(hand1, hand2)
