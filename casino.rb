@@ -1,6 +1,6 @@
 require_relative 'player'
 require_relative 'blackjack'
-
+require_relative 'high_low'
 class Casino
   attr_accessor :games, :player
 
@@ -19,7 +19,6 @@ class Casino
   end
 
   def main_menu
-
     puts "\nWelcome to the extravagant Ruby Casino!"
     print "\What is your name? "
     name = gets.strip
@@ -34,7 +33,7 @@ class Casino
       when 1
         Slots.new(@player, self)
       when 2
-        High_low.new(@player, self)
+        HighLow.new(@player, self)
       when 3
         Cee_lo.new(@player, self)
       when 4

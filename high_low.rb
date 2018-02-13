@@ -1,9 +1,13 @@
+require 'colorize'
 require_relative 'deck'
-
+require_relative 'casino'
+require_relative 'player'
 class HighLow
     attr_accessor :cards 
     
-    def initialize 
+    def initialize(player1, casino)
+        @player = player1
+        @casino = casino  
         deck = Deck.new 
         @cards = deck.shuffle_cards
         start_game 
@@ -39,4 +43,4 @@ class HighLow
      
 
 end 
-HighLow.new 
+
