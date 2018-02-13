@@ -26,13 +26,15 @@ class Cee_lo
 
     if hand1.score == hand2.score
       puts "\tTie. Nobody wins."
-      start_game(@player)
+      start_game
     elsif hand1.score > hand2.score
       puts "\t\tYou win $#{@bet}! Gettin' PAID!".colorize(:green)
       @player.wallet.increase_balance(@bet)
+      start_game
     else
       puts "\t\tYou lose $#{@bet}. Pay up, sucka!".colorize(:red)
       @player.wallet.decrease_balance(@bet)
+      start_game
     end
   end
 
