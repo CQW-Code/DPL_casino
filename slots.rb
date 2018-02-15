@@ -10,21 +10,19 @@ require_relative 'casino'
 class Slots
 
 #add color??
-attr_accessor   :slots_arr, :bet, :amount, :name, :wallet, :balance, :list_games, 
+attr_accessor   :slots_arr, :bet, :amount, :name, :wallet, :balance, :list_games, :main_menu
 
-def initialize(player1, casino)
+def initialize()
   @slots_arr = [ "💎", "😎", "🍓", "🍒", "🍋", "💰", "🍎", "🍕", "🍺", "🖥"]
-  @player = player1 #player variable
-  @casino = casino 
   @wallet = Wallet.new(50)
   @balance = balance
   slot_menu
-  @amount = amount
+  @balance = balance
   #@name = name
   @wallet = wallet
 end #end initialize
 
-def slot_menu(player1, casino) #pushes variables into menu
+def slot_menu() #pushes variables into menu
   puts "Place your bet and spin: "
   puts "1) Penny Slots- $1"
   puts "2) Two-fer Slots- $2"
@@ -112,7 +110,7 @@ def exit_slots
   if exit_yn == "y"
     slot_menu
   else 
-    @casino.main_menu
+    Casino.new.main_menu
   end #end if
 end #end exit_slots
 
