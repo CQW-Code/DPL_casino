@@ -1,2 +1,3 @@
 source 'https://rubygems.org'
-gem 'colorize'
+gem 'colorize'gem 'colorize'
+gem "passenger", ">= 5.0.11"
